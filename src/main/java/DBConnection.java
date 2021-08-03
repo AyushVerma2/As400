@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,8 +15,10 @@ public class DBConnection {
             //props.load(new FileInputStream("/Users/ayush/study/java_as400" +
                   //  "/src/main/resources/db.properties"));
             System.out.println("Starting connection to AS400");
-            props.load(new FileInputStream("./src/main/resources/db" +
-                    ".properties"));
+            ClassLoader classLoader = DBConnection.class.getClassLoader();
+            File file =
+                    new File(classLoader.getResource("db.properties").getFile());
+            props.load(new FileInputStream(file));
 
             String DRIVER = "com.ibm.as400.access.AS400JDBCDriver";
             String URL = "jdbc:as400://" + props.getProperty("local_system").trim() + ";naming=system;errors=full";
