@@ -1,0 +1,87 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "SQL APIs",
+    "description": "APIs available for SQL",
+    "version": "1.0.0"
+  },
+  "host": "sgpas8.com:10054",
+  "schemes": [ "http" ],
+  "basePath": "/web/services/SQL",
+  "tags": [
+    {
+      "name": "SQL APIs",
+      "description": "APIs available for SQL"
+    }
+  ],
+  "definitions": {
+    "SQLException": {
+      "type": "object",
+      "properties": {
+        "SQLState": {
+          "type": "string",
+          "maxLength": 5
+        },
+        "errorCode": {
+          "type": "integer"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "SQLStateInfo": {
+      "type": "object",
+      "properties": {
+        "rowsAffectedCounts": {
+          "type": "string"
+        },
+        "SQLError": {
+          "$ref": "#/definitions/SQLException"
+        },
+        "SQLWarnings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SQLException"
+          }
+        }
+      }
+    },
+    "GETBSSCPFResult": {
+      "type": "object",
+      "properties": {
+        "SQLStateInfo": {
+          "$ref": "#/definitions/SQLStateInfo"
+        }
+      }
+    }
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "SQL APIs"
+        ],
+        "operationId": "GETBSSCPF",
+        "consumes": [
+          "*/*"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "500": {
+            "description": "Unsuccessful operation",
+            "schema": {
+              "$ref": "#/definitions/GETBSSCPFResult"
+            }
+          }
+        }
+      }
+    }
+  }
+}
