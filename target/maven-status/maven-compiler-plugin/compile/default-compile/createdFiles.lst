@@ -1,1 +1,4 @@
+HttpServerTest.class
+ChessData.class
 DBConnection.class
+HttpServerTest$MyHttpHandler.class
