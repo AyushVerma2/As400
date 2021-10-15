@@ -1,0 +1,317 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "pocsuser APIs",
+    "description": "APIs available for pocsuser",
+    "version": "1.0.0"
+  },
+  "host": "sgpas8.avivaap.local:10065",
+  "schemes": [ "http" ],
+  "basePath": "/web/services/pocsuser",
+  "tags": [
+    {
+      "name": "pocsuser APIs",
+      "description": "APIs available for pocsuser"
+    }
+  ],
+  "definitions": {
+    "SQLException": {
+      "type": "object",
+      "properties": {
+        "SQLState": {
+          "type": "string",
+          "maxLength": 5
+        },
+        "errorCode": {
+          "type": "integer"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "SQLStateInfo": {
+      "type": "object",
+      "properties": {
+        "rowsAffectedCounts": {
+          "type": "string"
+        },
+        "SQLError": {
+          "$ref": "#/definitions/SQLException"
+        },
+        "SQLWarnings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SQLException"
+          }
+        }
+      }
+    },
+    "GETALLResult": {
+      "type": "object",
+      "properties": {
+        "SQLStateInfo": {
+          "$ref": "#/definitions/SQLStateInfo"
+        }
+      }
+    },
+    "GETBYUSERResult": {
+      "type": "object",
+      "properties": {
+        "SQLStateInfo": {
+          "$ref": "#/definitions/SQLStateInfo"
+        }
+      }
+    },
+    "GETBYSYSResult": {
+      "type": "object",
+      "properties": {
+        "SQLStateInfo": {
+          "$ref": "#/definitions/SQLStateInfo"
+        }
+      }
+    },
+    "REMOVEResult": {
+      "type": "object",
+      "properties": {
+        "SQLStateInfo": {
+          "$ref": "#/definitions/SQLStateInfo"
+        }
+      }
+    },
+    "UPDATEInput": {
+      "type": "object",
+      "properties": {
+        "UPTEXT": {
+          "type": "string"
+        },
+        "UPUPRF": {
+          "type": "string"
+        }
+      }
+    },
+    "UPDATEResult": {
+      "type": "object",
+      "properties": {
+        "SQLStateInfo": {
+          "$ref": "#/definitions/SQLStateInfo"
+        }
+      }
+    },
+    "ADDInput": {
+      "type": "object",
+      "properties": {
+        "UPUPRF": {
+          "type": "string"
+        },
+        "UPSYST": {
+          "type": "string"
+        },
+        "UPTEXT": {
+          "type": "string"
+        }
+      }
+    },
+    "ADDResult": {
+      "type": "object",
+      "properties": {
+        "SQLStateInfo": {
+          "$ref": "#/definitions/SQLStateInfo"
+        }
+      }
+    }
+  },
+  "paths": {
+    "/getsys/{upsyst}": {
+      "get": {
+        "tags": [
+          "pocsuser APIs"
+        ],
+        "operationId": "GETBYSYS",
+        "consumes": [
+          "*/*"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "upsyst",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "500": {
+            "description": "Unsuccessful operation",
+            "schema": {
+              "$ref": "#/definitions/GETBYSYSResult"
+            }
+          }
+        }
+      }
+    },
+    "/{upuprf}": {
+      "delete": {
+        "tags": [
+          "pocsuser APIs"
+        ],
+        "operationId": "REMOVE",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "upuprf",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "500": {
+            "description": "Unsuccessful operation",
+            "schema": {
+              "$ref": "#/definitions/REMOVEResult"
+            }
+          }
+        }
+      }
+    },
+    "/getuser/{upuprf}": {
+      "get": {
+        "tags": [
+          "pocsuser APIs"
+        ],
+        "operationId": "GETBYUSER",
+        "consumes": [
+          "*/*"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "upuprf",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "500": {
+            "description": "Unsuccessful operation",
+            "schema": {
+              "$ref": "#/definitions/GETBYUSERResult"
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "pocsuser APIs"
+        ],
+        "operationId": "GETALL",
+        "consumes": [
+          "*/*"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "500": {
+            "description": "Unsuccessful operation",
+            "schema": {
+              "$ref": "#/definitions/GETALLResult"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "pocsuser APIs"
+        ],
+        "operationId": "ADD",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ADDInput"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation"
+          },
+          "500": {
+            "description": "Unsuccessful operation",
+            "schema": {
+              "$ref": "#/definitions/ADDResult"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "pocsuser APIs"
+        ],
+        "operationId": "UPDATE",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UPDATEInput"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "500": {
+            "description": "Unsuccessful operation",
+            "schema": {
+              "$ref": "#/definitions/UPDATEResult"
+            }
+          }
+        }
+      }
+    }
+  }
+}
